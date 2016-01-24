@@ -49,11 +49,11 @@ tidy2<-gather(tidy, key,value,-activity,-subject) %>%
   mutate(key2=ifelse(dashCount ==2,as.character(key),paste0(as.character(key),"-"))) #count number of dashes
 
 tidy3<-separate(tidy2,key2,into = c("action", "measure","coordinate"), sep="-") #separate the key variable into other varaibles
-tidy4<-separate(tidy3,action,into = c("t_f","action"),sep=1) %>% 
+tidy4<-separate(tidy3,action,into = c("signal","action"),sep=1) %>% 
   select(-c(key,dashCount))
 
 #final cleaning - convert to factors
-tidy4$t_f <- as.factor(tidy4$t_f)
+tidy4$signal <- factor(tidy4$signal,labels=c("freq","time"))
 tidy4$action <- as.factor(tidy4$action)
 tidy4$coordinate <- as.factor(tidy4$coordinate)
 tidy4$measure <- as.factor(tidy4$measure)
