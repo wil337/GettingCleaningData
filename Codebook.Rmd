@@ -1,0 +1,15 @@
+---
+title: "Codebook"
+output: html_document
+---
+
+##Code Book
+This creates a tidy dataset with the follwing variables
+
+- activity: WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING
+- subject: integers 1:20
+- value: value of the measure
+- signal: freq, time
+- action: BodyAcc,BodyAccJerk,BodyAccJerkMag,BodyAccMag,BodyBodyAccJerkMag, BodyBodyGyroJerkMag, BodyGyro, BodyBodyGyroMag, BodyGyroJerk, BodyGyroJerkMag, BodyGyroMag, GravityAcc, GravityAccMag
+- measure: mean(), meanFreq(), std()
+- coordinate: X, Y, ""
