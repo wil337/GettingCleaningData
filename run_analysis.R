@@ -9,9 +9,11 @@ library(dplyr)
 #1. merge training and test sets
 datatrain<-read.table("C:/Users/William/Box Sync/Coursera/Getting Cleaning Data/GettingCleaningData/getdata_projectfiles_UCI HAR Dataset/UCI HAR Dataset/train/X_train.txt",header=F,sep="")
 vars<-read.table("C:/Users/William/Box Sync/Coursera/Getting Cleaning Data/GettingCleaningData/getdata_projectfiles_UCI HAR Dataset/UCI HAR Dataset/features.txt",header=F,sep="")
+#4. labels
 
 resptrain<-read.table("C:/Users/William/Box Sync/Coursera/Getting Cleaning Data/GettingCleaningData/getdata_projectfiles_UCI HAR Dataset/UCI HAR Dataset/train/y_train.txt",header=F,sep="")
 varsA<-read.table("C:/Users/William/Box Sync/Coursera/Getting Cleaning Data/GettingCleaningData/getdata_projectfiles_UCI HAR Dataset/UCI HAR Dataset/activity_labels.txt",header=F,sep="")
+#3. name activities
 datatrain$activity<-factor(x=resptrain$V1,levels=c(1,2,3,4,5,6),labels=varsA$V2)
 subjecttrain<-read.table("C:/Users/William/Box Sync/Coursera/Getting Cleaning Data/GettingCleaningData/getdata_projectfiles_UCI HAR Dataset/UCI HAR Dataset/train/subject_train.txt",header=F,sep="")
 datatrain$subject<-factor(subjecttrain$V1,levels=seq(1,30,1))
@@ -26,7 +28,9 @@ data<-bind_rows(datatrain,datatest)
 str(datatrain2)
 
 #2. mean and stdev
-data2<-select(data,matches(".mean.|.std."))
+data2<-select(data,matches(".mean.|.std.|activity|subject"))
 
-#3. name activities
-names(data2)
+
+#5. average per subject per activity, summary 
+tidy<-select(data2,-matches(".std.")) %>% group_by(activity,subject) %>% summarise_each(funs(mean))
+
